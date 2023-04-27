@@ -1,31 +1,49 @@
-package com.atmecs.bookdetails;
+
+package com.atmecs.bookorderdetails;
 
 /**
- * This program is to display the Ebook details.
+ * This is Ebook class extended by Book class and implemented by IPurchasable.
+ * Which have instance variable fileSize.
  * 
  * @author Sandhya.Kadiyala
  *
  */
-class Ebook extends Book {
-	private String fileSize;
+class Ebook extends Book implements IPurchasable {
+	private double fileSize;
 
 	/**
-	 * This is a Book constructor. Which sets the instance variables.
+	 * This is Ebook constructor which sets the instance variables.
 	 * 
 	 * @param title
 	 * @param author
 	 * @param ISBN
 	 * @param fileSize
 	 */
-	Ebook(String title, String author, String ISBN, String fileSize) {
+	public Ebook(String title, String author, String ISBN, int fileSize) {
 		super(title, author, ISBN);
 		this.fileSize = fileSize;
 	}
 
-	/**
-	 * This method is used to return the input values in string representation.
-	 */
-	public String toString() {
-		return super.toString() + ", File Size: " + fileSize;
+	public double getFileSize() {
+		return fileSize;
 	}
+
+	public void setFileSize(int fileSize) {
+		this.fileSize = fileSize;
+	}
+
+	/**
+	 * This method is used to return the fileSize in string representation.
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + ", File Size: " + fileSize + " MB";
+	}
+
+	public void purchase(User user) {
+
+		System.out.println(getTitle() + " Ebook purchased and added to User library");
+
+	}
+
 }
