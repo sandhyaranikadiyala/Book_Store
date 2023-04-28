@@ -1,33 +1,37 @@
-package com.atmecs.bookorderdetails;
+package com.atmecs.exceptions;
+
+import java.util.Calendar;
 
 /**
- * This is Book class is implemented by IRentable interface. which have the
+ * This is Book class to check the publication year is valid or not. which have
  * instance variables.
  * 
  * @author Sandhya.Kadiyala
  *
  */
-class Book implements IRentable {
+public class Book {
+
 	private String title;
 	private String author;
 	private String isbn;
-	private boolean isRented;
+	private int publicationYear;
 
 	/**
-	 * This is a Book constructor. Which sets the instance variables.
+	 * This is Book constructor which sets the instance variables.
 	 * 
 	 * @param title
 	 * @param author
 	 * @param isbn
+	 * @param publicationYear
+	 * @throws InvalidPublicationYearException
 	 */
-	public Book(String title, String author, String isbn) {
+	public Book(String title, String author, String isbn, int publicationYear) throws InvalidPublicationYearException {
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
-		this.isRented = false;
+		this.publicationYear = publicationYear;
 	}
 
-	// Getters and Setters
 	public String getTitle() {
 		return title;
 	}
@@ -52,21 +56,30 @@ class Book implements IRentable {
 		this.isbn = isbn;
 	}
 
-	@Override
-	public void rent() {
-		isRented = true;
-	}
-
-	@Override
-	public void returnBook() {
-		isRented = false;
+	public int getPublicationYear() {
+		return publicationYear;
 	}
 
 	/**
-	 * This method is used to return the fileSize in string representation.
+	 * This is publication year set method to write the logic for <1900 and >
+	 * current date it will throws Invalid publication year exception.
+	 * 
+	 * @param publicationYear
+	 * @throws InvalidPublicationYearException
+	 */
+	public void setPublicationYear(int publicationYear) throws InvalidPublicationYearException {
+		if (publicationYear < 1900 || publicationYear > Calendar.getInstance().get(Calendar.YEAR)) {
+			throw new InvalidPublicationYearException("Invalid published year");
+		}
+		this.publicationYear = publicationYear;
+	}
+
+	/**
+	 * This is toString method to get the book details in string representation.
 	 */
 	@Override
 	public String toString() {
-		return "Title: " + title + ", Author: " + author + ", ISBN: " + isbn + ", Rented: " + isRented;
+		return "{" + "title='" + title + '\'' + ", author='" + author + '\'' + ", isbn='" + isbn + '\''
+				+ ", publicationYear=" + publicationYear + '}';
 	}
 }

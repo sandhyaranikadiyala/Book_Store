@@ -1,36 +1,31 @@
-package com.atmecs.bookdetails;
+package com.atmecs.exceptions;
 
 /**
- * This program is to display the Book details.
+ * This is BookRunner class which has main method.
  * 
  * @author Sandhya.Kadiyala
  *
  */
 public class BookRunner {
 	/**
-	 * This is main method is to give the input values and get the output.
+	 * This is main method create object for class and call the object. Give inputs
+	 * and get output.
 	 * 
 	 * @param args
 	 */
 	public static void main(String args[]) {
-		Book book = new Book("Publish News Letter", "Amit Garg", "123");
-		book.toString();
-		System.out.println(book);
 
-		Ebook ebook = new Ebook("Publish News Letter", "Amit Garg", "123", "200");
-		ebook.toString();
-		System.out.println(ebook);
+		try {
+			Book book = new Book("To Kill a Mockingbird", "Harper Lee", "1234", 1800);
+			int yearPublished = book.getPublicationYear();
+			System.out.println(book);
+			System.out.println("Year of published : " + yearPublished);
 
-		AudioBook abook = new AudioBook("Publish News Letter", "Amit Garg", "123", "john", 5);
-		abook.toString();
-		System.out.println(abook);
+			book.setPublicationYear(1800); // Should throw InvalidPublicationYearException
+		} catch (InvalidPublicationYearException e) {
+			System.out.println(e.getMessage());
+		}
 
-		Textbook tbook = new Textbook("Publish News Letter", "Amit Garg", "123", "Science", 'A');
-		tbook.toString();
-		System.out.println(tbook);
-
-		ReferenceBook rbook = new ReferenceBook("Publish News Letter", "Amit Garg", "123", "Ram", 2012);
-		rbook.toString();
-		System.out.println(rbook);
 	}
+
 }
